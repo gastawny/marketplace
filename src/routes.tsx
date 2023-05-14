@@ -1,11 +1,11 @@
-import { Home } from 'Home'
+import { Login } from 'pages/Login'
 import { Route, Routes } from 'react-router-dom'
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/">
-        <Route index element={<Home />} />
+        <Route index element={<Login />} />
       </Route>
     </Routes>
   )
