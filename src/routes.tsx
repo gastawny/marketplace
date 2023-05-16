@@ -1,4 +1,6 @@
 import { Login } from 'pages/Login'
+import { NotFound } from 'pages/NotFound'
+import { Register } from 'pages/Register'
 import { Route, Routes } from 'react-router-dom'
 
 const AppRoutes = () => {
@@ -6,6 +8,8 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/">
         <Route index element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   )
