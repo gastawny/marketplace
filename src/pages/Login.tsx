@@ -1,16 +1,38 @@
-import { useState } from 'react'
 import { Input } from 'components/Input'
 import { CheckBox } from 'components/Checkbox'
 import { Background } from 'components/Background'
 import styled from 'styled-components'
 import tw from 'twin.macro'
+import z from 'zod'
+import { FormProvider, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+const loginFormDataSchema = z.object({
+  email: z.string().nonempty('O e-mail é obrigatório').email('Formato de email inválido'),
+  password: z.string().nonempty('A senha é obrigatória'),
+  checked: z.boolean(),
+})
+
+type loginFormData = z.infer<typeof loginFormDataSchema>
+
+const defaultValues: loginFormData = {
+  email: '',
+  password: '',
+  checked: false,
+}
 
 export const Login = () => {
-  const [datas, setDatas] = useState({ username: '', password: '' })
-  const [checked, setChecked] = useState(false)
+  const loginUserForm = useForm<loginFormData>({
+    defaultValues,
+    resolver: zodResolver(loginFormDataSchema),
+  })
 
-  const handleInputChange = (type: string, event: React.ChangeEvent<HTMLInputElement>) =>
-    setDatas((datas) => ({ ...datas, [type]: event.target.value }))
+  const {
+    handleSubmit,
+    formState: { isSubmitting },
+  } = loginUserForm
+
+  const submit = (data: any) => console.log(data)
 
   return (
     <>
@@ -21,40 +43,29 @@ export const Login = () => {
             <h2 className="text-2xl md:text-3xl uppercase text-primary-color font-bold tracking-wider text-center">
               Acesse sua conta
             </h2>
-            <form className="w-full flex flex-col gap-6">
-              <Input
-                value={datas.username}
-                onChange={(event) => handleInputChange('username', event)}
-                type="text"
-              >
-                Usuário
-              </Input>
-              <Input
-                value={datas.password}
-                onChange={(event) => handleInputChange('password', event)}
-                type="password"
-              >
-                Senha
-              </Input>
-              <div className="relative w-full flex justify-between">
-                <CheckBox checked={checked} onChange={() => setChecked(!checked)}>
-                  Lembrar senha
-                </CheckBox>
-                <a
-                  className="text-sm md:text-base no-underline text-primary-color font-semibold tracking-wider hover:mix-blend-hard-light"
-                  href="#"
-                >
-                  Criar uma conta
-                </a>
-              </div>
-              <div>
-                <input
-                  className="relative w-full bg-primary-color border-none p-2.5 rounded text-lg md:text-xl text-bg-primary-color font-semibold  tracking-widest cursor-pointer hover:mix-blend-hard-light"
-                  type="submit"
-                  value="Login"
-                />
-              </div>
-            </form>
+            <FormProvider {...loginUserForm}>
+              <form className="w-full flex flex-col gap-6" onSubmit={handleSubmit(submit)}>
+                <Input name="email" field="E-mail" type="text" />
+                <Input name="password" field="Senha" type="password" />
+                <div className="relative w-full flex justify-between">
+                  <CheckBox field="checkbox">Lembrar senha</CheckBox>
+                  <a
+                    className="text-sm md:text-base no-underline text-primary-color font-semibold tracking-wider hover:mix-blend-hard-light"
+                    href="#"
+                  >
+                    Criar uma conta
+                  </a>
+                </div>
+                <div>
+                  <input
+                    className="relative w-full bg-primary-color border-none p-2.5 rounded text-lg md:text-xl text-bg-primary-color font-semibold  tracking-widest cursor-pointer hover:mix-blend-hard-light"
+                    type="submit"
+                    value="Login"
+                    disabled={isSubmitting}
+                  />
+                </div>
+              </form>
+            </FormProvider>
           </div>
         </Signin>
       </section>
