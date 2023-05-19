@@ -8,29 +8,22 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 const loginFormDataSchema = z.object({
-  email: z.string().nonempty('O e-mail é obrigatório').email('Formato de email inválido'),
-  password: z.string().nonempty('A senha é obrigatória'),
+  email: z
+    .string()
+    .nonempty({ message: 'O e-mail é obrigatório' })
+    .email({ message: 'Formato de email inválido' }),
+  password: z.string().nonempty({ message: 'A senha é obrigatória' }),
   checked: z.boolean(),
 })
 
 type loginFormData = z.infer<typeof loginFormDataSchema>
 
-const defaultValues: loginFormData = {
-  email: '',
-  password: '',
-  checked: false,
-}
-
 export const Login = () => {
   const loginUserForm = useForm<loginFormData>({
-    defaultValues,
     resolver: zodResolver(loginFormDataSchema),
   })
 
-  const {
-    handleSubmit,
-    formState: { isSubmitting },
-  } = loginUserForm
+  const { handleSubmit } = loginUserForm
 
   const submit = (data: any) => console.log(data)
 
@@ -61,7 +54,6 @@ export const Login = () => {
                     className="relative w-full bg-primary-color border-none p-2.5 rounded text-lg md:text-xl text-bg-primary-color font-semibold  tracking-widest cursor-pointer hover:mix-blend-hard-light"
                     type="submit"
                     value="Login"
-                    disabled={isSubmitting}
                   />
                 </div>
               </form>

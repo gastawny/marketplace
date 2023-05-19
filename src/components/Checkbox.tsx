@@ -21,7 +21,7 @@ export const CheckBox = ({ children, field }: { children: ReactNode; field: stri
 }
 
 const LabelContainer = styled.label`
-  ${tw`block relative pl-8 mb-3 cursor-pointer text-sm md:text-lg`}
+  ${tw`block relative pl-8 cursor-pointer text-sm md:text-base`}
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
