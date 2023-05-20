@@ -1,5 +1,5 @@
 import { Input } from 'components/Input'
-import { CheckBox } from 'components/Checkbox'
+import { CheckBox } from 'components/CheckBox'
 import { Background } from 'components/Background'
 import styled from 'styled-components'
 import tw from 'twin.macro'

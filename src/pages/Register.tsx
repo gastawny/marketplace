@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Background } from 'components/Background'
-import { CheckBox } from 'components/Checkbox'
+import { CheckBox } from 'components/CheckBox'
 import { Input } from 'components/Input'
 import { useForm, FormProvider } from 'react-hook-form'
 import { Link } from 'react-router-dom'
