@@ -32,7 +32,7 @@ export const Login = () => {
       <Background />
       <section className="min-h-screen flex justify-center items-center relative">
         <Signin>
-          <div className="relative w-full h-full gap-4 2xl:py-8 flex justify-around  items-center flex-col">
+          <div className="relative w-full h-full gap-4 2xl:py-8 flex justify-around items-center flex-col">
             <h2 className="text-2xl md:text-3xl uppercase text-primary-color font-bold tracking-wider text-center">
               Acesse sua conta
             </h2>
@@ -51,7 +51,7 @@ export const Login = () => {
                 </div>
                 <div>
                   <input
-                    className="relative w-full bg-primary-color border-none p-2.5 rounded text-lg md:text-xl text-bg-primary-color font-semibold  tracking-widest cursor-pointer hover:mix-blend-hard-light"
+                    className="relative w-full bg-primary-color border-none p-2.5 rounded text-lg md:text-xl text-bg-primary-color font-semibold tracking-widest cursor-pointer hover:mix-blend-hard-light"
                     type="submit"
                     value="Login"
                   />

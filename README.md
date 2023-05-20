@@ -4,7 +4,7 @@ This marketplace project was motivated by a technical challenge proposed by [Ori
 
 # :link: Link to project
 
-[marketplace.gastawny.com](http://www.utfpr.edu.br/)
+[marketplace.gastawny.com](https://marketplace.gastawny.com/)
 
 # :computer: Technologies
 
