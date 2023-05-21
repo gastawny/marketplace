@@ -6,16 +6,20 @@ import tw from 'twin.macro'
 import { useState } from 'react'
 import { RiShoppingCartFill } from 'react-icons/ri'
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai'
+import { useAuth } from 'contexts/Auth'
 
 export const Header = () => {
   const [search, setSearch] = useState('')
   const [open, setOpen] = useState(false)
   const windowWidth = window.innerWidth
+  const { auth } = useAuth()
 
   return (
-    <div className="relative flex justify-between items-center py-3 lg:py-5 px-4 md:px8 lg:px-16 bg-bg-secondary-color h-24">
-      {windowWidth > 768 && <img className="h-4/5  2xl:h-full" src={logo} alt="Logo OrionMarket" />}
-      {windowWidth <= 768 && <img className="h-2/3" src={icon} alt="Logo OrionMarket" />}
+    <div className="relative flex justify-between items-center py-4 lg:py-5 px-2 md:px8 lg:px-16 bg-bg-secondary-color h-24">
+      <Link to="/" className="h-3/5 md:h-4/5 2xl:h-full">
+        {windowWidth > 768 && <img className="h-full" src={logo} alt="Logo OrionMarket" />}
+        {windowWidth <= 768 && <img className="h-full" src={icon} alt="Logo OrionMarket" />}
+      </Link>
       <Input length={search.length > 0 ? true : false}>
         <input
           type="text"
@@ -27,7 +31,7 @@ export const Header = () => {
           Busque aqui
         </i>
       </Input>
-      {windowWidth <= 768 && (
+      {!auth && windowWidth <= 768 && (
         <>
           <button className="bg-transparent" onClick={() => setOpen(!open)}>
             {open ? <AiOutlineClose size={28} /> : <AiOutlineMenu size={28} />}
@@ -46,7 +50,7 @@ export const Header = () => {
           )}
         </>
       )}
-      {windowWidth > 768 && (
+      {!auth && windowWidth > 768 && (
         <nav>
           <ul className="flex gap-6 lg:gap-9 xl:gap-12">
             <li>
@@ -65,20 +69,30 @@ export const Header = () => {
                 Cadastro
               </Link>
             </li>
-            <li>
-              <Link to="/">
-                <RiShoppingCartFill size={28} className="text-white hover:text-primary-color" />
-              </Link>
-            </li>
           </ul>
         </nav>
+      )}
+      {auth && (
+        <>
+          <div>
+            <h3 className="text-sm md:text-lg tracking-wider font-medium">
+              Olá, <span className="text-primary-color md:text-xl">{'Gabriel'}</span>
+            </h3>
+            <h4 className="ml-2 md:ml-4 font-light text-xs md:text-base tracking-wide">
+              saldo: R${'28,30'}
+            </h4>
+          </div>
+          <Link to="/">
+            <RiShoppingCartFill size={28} className="text-white hover:text-primary-color" />
+          </Link>
+        </>
       )}
     </div>
   )
 }
 
 const Input = styled.div<{ length: boolean }>`
-  ${tw`relative md:w-1/3 lg:w-1/2 2xl:w-3/5`}
+  ${tw`relative w-1/2 md:w-1/3 lg:w-1/2 2xl:w-3/5`}
 
   input:focus ~ .field {
     ${tw`-translate-y-4 text-xs md:text-sm`}
