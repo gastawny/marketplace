@@ -10,6 +10,8 @@ export default {
         'bg-primary-color': 'var(--bg-primary)',
         'bg-secondary-color': 'var(--bg-secondary)',
         'bg-tertiary-color': 'var(--bg-tertiary)',
+        'negative-color': 'var(--negative)',
+        'positive-color': 'var(--positive)',
       },
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],

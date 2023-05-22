@@ -2,6 +2,7 @@ import { AuthProvider } from 'contexts/Auth'
 import { Home } from 'pages/Home'
 import { Login } from 'pages/Login'
 import { NotFound } from 'pages/NotFound'
+import { Product } from 'pages/Product'
 import { Register } from 'pages/Register'
 import { Route, Routes } from 'react-router-dom'
 
@@ -15,7 +16,7 @@ const AppRoutes = () => {
           <Route path="register" element={<Register />} />
         </Route>
         <Route path="produto">
-          <Route index element={<h1>asd</h1>} />
+          <Route index element={<Product />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

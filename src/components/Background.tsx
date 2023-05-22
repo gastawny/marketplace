@@ -5,6 +5,7 @@ export const Background = () => {
   const numberOfSpans = 200
   const spans: number[] = []
   for (let i = 0; i < numberOfSpans; i++) spans.push(i)
+
   return (
     <BackGround>
       {spans.map((number) => (
