@@ -10,11 +10,11 @@ interface ICardProps {
   img: string
 }
 
-export const Card = ({ text, price, units, img }: ICardProps) => {
+export const Card = ({ text, price, units, img, id }: ICardProps) => {
   return (
     <Link
       className="w-64 h-96 rounded-md bg-bg-secondary-color text-zinc-200 flex flex-col p-3 transition-transform hover:scale-105"
-      to={`/${'produto'}`}
+      to={`/produto/${id}`}
     >
       <img className="rounded-md" src={placadevideo} />
       <div className="flex h-full flex-col justify-around mt-2">

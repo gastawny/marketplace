@@ -2,9 +2,12 @@ import { AuthProvider } from 'contexts/Auth'
 import { Home } from 'pages/Home'
 import { Login } from 'pages/Login'
 import { NotFound } from 'pages/NotFound'
-import { Product } from 'pages/Product'
 import { Register } from 'pages/Register'
+import { lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import { productsExample } from 'util/productsExample'
+
+const Product = lazy(() => import('pages/Product'))
 
 const AppRoutes = () => {
   return (
@@ -16,7 +19,9 @@ const AppRoutes = () => {
           <Route path="register" element={<Register />} />
         </Route>
         <Route path="produto">
-          <Route index element={<Product />} />
+          {productsExample.map((product) => (
+            <Route key={product.id} path={product.id} element={<Product {...product} />} />
+          ))}
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
