@@ -82,7 +82,7 @@ export const Header = () => {
               saldo: R${'28,30'}
             </h4>
           </div>
-          <Link to="/">
+          <Link to="/cart">
             <RiShoppingCartFill size={28} className="text-white hover:text-primary-color" />
           </Link>
         </>
