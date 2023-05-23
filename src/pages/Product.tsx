@@ -1,5 +1,7 @@
 import { Header } from 'components/Header'
 import placadevideo from 'assets/images/placadevideo.jpg'
+import { Link } from 'react-router-dom'
+import { useCartItems } from 'contexts/CartItems'
 
 interface IProductProps {
   id: string
@@ -11,6 +13,8 @@ interface IProductProps {
 }
 
 const Product = ({ text, price, units, img, id, seller }: IProductProps) => {
+  const { pushItem } = useCartItems()
+
   return (
     <>
       <Header />
@@ -41,10 +45,16 @@ const Product = ({ text, price, units, img, id, seller }: IProductProps) => {
                 R$ {price}
               </h2>
               <div className="flex flex-col gap-5">
-                <button className="w-full bg-primary-color border-none p-5 rounded text-lg md:text-xl text-bg-primary-color uppercase font-semibold tracking-widest cursor-pointer hover:mix-blend-hard-light">
+                <Link
+                  to="/cart"
+                  className="w-full bg-primary-color border-none text-center p-5 rounded text-lg md:text-xl text-bg-primary-color uppercase font-semibold tracking-widest cursor-pointer hover:mix-blend-hard-light"
+                >
                   Comprar Agora
-                </button>
-                <button className="w-full bg-primary-color border-none p-5 rounded text-lg md:text-xl text-bg-primary-color uppercase font-semibold tracking-widest cursor-pointer hover:mix-blend-hard-light">
+                </Link>
+                <button
+                  onClick={() => pushItem(id)}
+                  className="w-full bg-primary-color border-none p-5 rounded text-lg md:text-xl text-bg-primary-color uppercase font-semibold tracking-widest cursor-pointer hover:mix-blend-hard-light"
+                >
                   Adicionar ao carrinho
                 </button>
               </div>

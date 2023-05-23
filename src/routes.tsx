@@ -5,6 +5,7 @@ import { Home } from 'pages/Home'
 import { Login } from 'pages/Login'
 import { NotFound } from 'pages/NotFound'
 import { Register } from 'pages/Register'
+import { Search } from 'pages/Search'
 import { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { productsExample } from 'util/productsExample'
@@ -22,6 +23,7 @@ const AppRoutes = () => {
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
               <Route path="cart" element={<Cart />} />
+              <Route path="search/:query" element={<Search />} />
             </Route>
             <Route path="produto">
               {productsExample.map((product) => (

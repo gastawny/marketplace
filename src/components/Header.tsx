@@ -1,18 +1,29 @@
 import logo from 'assets/images/logo.png'
 import icon from 'assets/images/icon.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import tw from 'twin.macro'
 import { useState } from 'react'
 import { RiShoppingCartFill } from 'react-icons/ri'
-import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai'
+import { AiOutlineMenu, AiOutlineClose, AiOutlineSearch } from 'react-icons/ai'
 import { useAuth } from 'contexts/Auth'
+import { useCartItems } from 'contexts/CartItems'
 
 export const Header = () => {
   const [search, setSearch] = useState('')
   const [open, setOpen] = useState(false)
   const windowWidth = window.innerWidth
   const { auth } = useAuth()
+  const { cartItems } = useCartItems()
+  const navigate = useNavigate()
+  const totalCartItems = cartItems.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.amount,
+    0
+  )
+
+  function changePageToSearch() {
+    if (search.length !== 0) navigate(`/search/${search}`)
+  }
 
   return (
     <div className="relative flex justify-between items-center py-4 lg:py-5 px-2 md:px8 lg:px-16 bg-bg-secondary-color h-24">
@@ -22,6 +33,7 @@ export const Header = () => {
       </Link>
       <Input length={search.length > 0 ? true : false}>
         <input
+          onKeyDown={(event) => (event.key === 'Enter' ? changePageToSearch() : '')}
           type="text"
           value={search}
           onChange={(event) => setSearch(() => event.target.value)}
@@ -30,7 +42,11 @@ export const Header = () => {
         <i className="field font-medium tracking-wide absolute left-0 px-4 py-5 not-italic text-gray-300 duration-500 pointer-events-none">
           Busque aqui
         </i>
+        <button onClick={changePageToSearch} className="absolute top-4 right-2">
+          <AiOutlineSearch size={28} />
+        </button>
       </Input>
+
       {!auth && windowWidth <= 768 && (
         <>
           <button className="bg-transparent" onClick={() => setOpen(!open)}>
@@ -82,7 +98,12 @@ export const Header = () => {
               saldo: R${'28,30'}
             </h4>
           </div>
-          <Link to="/cart">
+          <Link to="/cart" className="relative">
+            {!!totalCartItems && (
+              <div className="absolute -top-2 -right-2 rounded-full bg-primary-color h-5 w-5 text-zinc-900 font-medium flex items-center justify-center">
+                {totalCartItems}
+              </div>
+            )}
             <RiShoppingCartFill size={28} className="text-white hover:text-primary-color" />
           </Link>
         </>
