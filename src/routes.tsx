@@ -1,33 +1,53 @@
+import { StoreCard } from 'components/StoreCard'
 import { AuthProvider } from 'contexts/Auth'
 import { CartItemsProvider } from 'contexts/CartItems'
-import { Cart } from 'pages/Cart'
+import { useApi } from 'hooks/useApi'
 import { Home } from 'pages/Home'
-import { Login } from 'pages/Login'
-import { NotFound } from 'pages/NotFound'
-import { Register } from 'pages/Register'
-import { Search } from 'pages/Search'
-import { Suspense, lazy } from 'react'
+import { Loading } from 'pages/Loading'
+import Store from 'pages/Store'
+import { Suspense, lazy, useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { productsExample } from 'util/productsExample'
 
 const Product = lazy(() => import('pages/Product'))
+const Login = lazy(() => import('pages/Login'))
+const NotFound = lazy(() => import('pages/NotFound'))
+const Search = lazy(() => import('pages/Search'))
+const Register = lazy(() => import('pages/Register'))
+const Cart = lazy(() => import('pages/Cart'))
 
 const AppRoutes = () => {
+  const [stores, setStores] = useState<any[]>([])
+  const { getStores } = useApi()
+
+  useEffect(() => {
+    fetchStores()
+  }, [])
+
+  const fetchStores = async () => {
+    try {
+      const response = await getStores()
+      setStores(response)
+    } catch (error) {
+      console.error('Error:', error)
+    }
+  }
+
   return (
     <AuthProvider>
       <CartItemsProvider>
-        <Suspense fallback={<div>loading ...</div>}>
+        <Suspense fallback={<Loading />}>
           <Routes>
             <Route path="/">
               <Route index element={<Home />} />
               <Route path="login" element={<Login />} />
-              <Route path="register" element={<Register />} />
-              <Route path="cart" element={<Cart />} />
-              <Route path="search/:query" element={<Search />} />
+              <Route path="cadastro" element={<Register />} />
+              <Route path="carrinho" element={<Cart />} />
+              <Route path="busca/:query" element={<Search />} />
             </Route>
-            <Route path="produto">
-              {productsExample.map((product) => (
-                <Route key={product.id} path={product.id} element={<Product {...product} />} />
+            <Route path="loja">
+              {stores.map(({ id, name }) => (
+                <Route key={id} path={`${id}`} element={<Store id={id} name={name} />} />
               ))}
             </Route>
             <Route path="*" element={<NotFound />} />

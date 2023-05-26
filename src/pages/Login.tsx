@@ -6,6 +6,10 @@ import tw from 'twin.macro'
 import z from 'zod'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useApi } from 'hooks/useApi'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Loading } from './Loading'
 
 const loginFormDataSchema = z.object({
   email: z
@@ -13,22 +17,40 @@ const loginFormDataSchema = z.object({
     .nonempty({ message: 'O e-mail é obrigatório' })
     .email({ message: 'Formato de email inválido' }),
   password: z.string().nonempty({ message: 'A senha é obrigatória' }),
-  checked: z.boolean(),
+  isChecked: z.boolean().optional(),
 })
 
 type loginFormData = z.infer<typeof loginFormDataSchema>
 
-export const Login = () => {
+const Login = () => {
+  const navigate = useNavigate()
+  const [errorMessage, setErrorMessage] = useState({ error: false, message: '' })
+  const [loginLoading, setLoginLoading] = useState(false)
+  const { login } = useApi()
   const loginUserForm = useForm<loginFormData>({
     resolver: zodResolver(loginFormDataSchema),
   })
 
-  const { handleSubmit } = loginUserForm
+  const { handleSubmit, register } = loginUserForm
 
-  const submit = (data: any) => console.log(data)
+  const submit = async ({ email, password, isChecked }: loginFormData) => {
+    try {
+      setLoginLoading(true)
+      const { error, message } = await login(email, password, !!isChecked)
+      setErrorMessage({ error, message })
+      setLoginLoading(false)
+      if (error) return
+
+      navigate('/')
+    } catch (error: any) {
+      setErrorMessage({ error: true, message: error.message })
+      setLoginLoading(false)
+    }
+  }
 
   return (
     <>
+      {loginLoading && <Loading />}
       <Background />
       <section className="min-h-screen flex justify-center items-center relative">
         <Signin>
@@ -40,8 +62,9 @@ export const Login = () => {
               <form className="w-full flex flex-col gap-6" onSubmit={handleSubmit(submit)}>
                 <Input name="email" field="E-mail" type="text" />
                 <Input name="password" field="Senha" type="password" />
+                {errorMessage.error && <span>E-mail ou senha incorretos</span>}
                 <div className="relative w-full flex justify-between">
-                  <CheckBox field="checkbox">Lembrar senha</CheckBox>
+                  <CheckBox field="isChecked">Lembrar senha</CheckBox>
                   <a
                     className="text-sm md:text-base no-underline text-primary-color font-semibold tracking-wider hover:mix-blend-hard-light"
                     href="#"
@@ -50,11 +73,12 @@ export const Login = () => {
                   </a>
                 </div>
                 <div>
-                  <input
+                  <button
                     className="relative w-full bg-primary-color border-none p-2.5 rounded text-lg md:text-xl text-bg-primary-color font-semibold tracking-widest cursor-pointer hover:mix-blend-hard-light"
                     type="submit"
-                    value="Login"
-                  />
+                  >
+                    Login
+                  </button>
                 </div>
               </form>
             </FormProvider>
@@ -70,3 +94,5 @@ const Signin = styled.div`
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
   min-height: 26rem;
 `
+
+export default Login
