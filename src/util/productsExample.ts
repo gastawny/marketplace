@@ -1,15 +1,15 @@
 export const productsExample = [
   {
     id: 'duiogasdlasjhkdabjklsd',
-    text: 'Placa de Vídeo RTX 3060 Ventus 2X MSI NVIDIA GeForce, 12GB GDDR6, DLSS, Ray Tracing - RTX 3060 Ventus 2X 12G OC',
-    price: '29,35',
+    name: 'Placa de Vídeo RTX 3060 Ventus 2X MSI NVIDIA GeForce, 12GB GDDR6, DLSS, Ray Tracing - RTX 3060 Ventus 2X 12G OC',
+    price: '1029,35',
     units: '50',
     img: 'Placadevideo',
     seller: 'Cleito',
   },
   {
     id: 'duasjhkdabiogasdljklsd',
-    text: 'Placa de Vídeo RTX 3060 Ventus 2X MSI NVIDIA GeForce, 12GB GDDR6, DLSS, Ray Tracing - RTX 3060 Ventus 2X 12G OC',
+    name: 'Placa de Vídeo RTX 3060 Ventus 2X MSI NVIDIA GeForce, 12GB GDDR6, DLSS, Ray Tracing - RTX 3060 Ventus 2X 12G OC',
     price: '29,35',
     units: '50',
     img: 'Placadevideo',
@@ -17,7 +17,7 @@ export const productsExample = [
   },
   {
     id: 'dukdabjkliogasdlasjhsd',
-    text: 'Placa de Vídeo RTX 3060 Ventus 2X MSI NVIDIA GeForce, 12GB GDDR6, DLSS, Ray Tracing - RTX 3060 Ventus 2X 12G OC',
+    name: 'Placa de Vídeo RTX 3060 Ventus 2X MSI NVIDIA GeForce, 12GB GDDR6, DLSS, Ray Tracing - RTX 3060 Ventus 2X 12G OC',
     price: '29,35',
     units: '50',
     img: 'Placadevideo',
@@ -25,7 +25,7 @@ export const productsExample = [
   },
   {
     id: 'jhkdabjduiogasdlasklsd',
-    text: 'Placa de Vídeo RTX 3060 Ventus 2X MSI NVIDIA GeForce, 12GB GDDR6, DLSS, Ray Tracing - RTX 3060 Ventus 2X 12G OC',
+    name: 'Placa de Vídeo RTX 3060 Ventus 2X MSI NVIDIA GeForce, 12GB GDDR6, DLSS, Ray Tracing - RTX 3060 Ventus 2X 12G OC',
     price: '29,35',
     units: '50',
     img: 'Placadevideo',
@@ -33,7 +33,7 @@ export const productsExample = [
   },
   {
     id: 'dasdlasjhkdabjkluiogsd',
-    text: 'Placa de Vídeo RTX 3060 Ventus 2X MSI NVIDIA GeForce, 12GB GDDR6, DLSS, Ray Tracing - RTX 3060 Ventus 2X 12G OC',
+    name: 'Placa de Vídeo RTX 3060 Ventus 2X MSI NVIDIA GeForce, 12GB GDDR6, DLSS, Ray Tracing - RTX 3060 Ventus 2X 12G OC',
     price: '29,35',
     units: '50',
     img: 'Placadevideo',
@@ -41,7 +41,7 @@ export const productsExample = [
   },
   {
     id: 'asdasoid',
-    text: 'Placa de Vídeo RTX 3060 Ventus 2X MSI NVIDIA GeForce, 12GB GDDR6, DLSS, Ray Tracing - RTX 3060 Ventus 2X 12G OC',
+    name: 'Placa de Vídeo RTX 3060 Ventus 2X MSI NVIDIA GeForce, 12GB GDDR6, DLSS, Ray Tracing - RTX 3060 Ventus 2X 12G OC',
     price: '29,35',
     units: '50',
     img: 'Placadevideo',
@@ -49,7 +49,7 @@ export const productsExample = [
   },
   {
     id: 'asdopiapsd',
-    text: 'Placa de Vídeo RTX 3060 Ventus 2X MSI NVIDIA GeForce, 12GB GDDR6, DLSS, Ray Tracing - RTX 3060 Ventus 2X 12G OC',
+    name: 'Placa de Vídeo RTX 3060 Ventus 2X MSI NVIDIA GeForce, 12GB GDDR6, DLSS, Ray Tracing - RTX 3060 Ventus 2X 12G OC',
     price: '29,35',
     units: '50',
     img: 'Placadevideo',
@@ -57,7 +57,7 @@ export const productsExample = [
   },
   {
     id: 'asiopdaoipsd',
-    text: 'Placa de Vídeo RTX 3060 Ventus 2X MSI NVIDIA GeForce, 12GB GDDR6, DLSS, Ray Tracing - RTX 3060 Ventus 2X 12G OC',
+    name: 'Placa de Vídeo RTX 3060 Ventus 2X MSI NVIDIA GeForce, 12GB GDDR6, DLSS, Ray Tracing - RTX 3060 Ventus 2X 12G OC',
     price: '29,35',
     units: '50',
     img: 'Placadevideo',
@@ -65,7 +65,7 @@ export const productsExample = [
   },
   {
     id: 'fuiaopjdopiasdjpioa',
-    text: 'Placa de Vídeo RTX 3060 Ventus 2X MSI NVIDIA GeForce, 12GB GDDR6, DLSS, Ray Tracing - RTX 3060 Ventus 2X 12G OC',
+    name: 'Placa de Vídeo RTX 3060 Ventus 2X MSI NVIDIA GeForce, 12GB GDDR6, DLSS, Ray Tracing - RTX 3060 Ventus 2X 12G OC',
     price: '29,35',
     units: '50',
     img: 'Placadevideo',
