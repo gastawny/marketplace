@@ -7,7 +7,6 @@ import { Loading } from 'pages/Loading'
 import Store from 'pages/Store'
 import { Suspense, lazy, useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { productsExample } from 'util/productsExample'
 
 const Product = lazy(() => import('pages/Product'))
 const Login = lazy(() => import('pages/Login'))

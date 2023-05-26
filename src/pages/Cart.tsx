@@ -1,14 +1,11 @@
 import { CartItem } from 'components/CartItem'
 import { Header } from 'components/Header'
 import { useCartItems } from 'contexts/CartItems'
-import { productsExample } from 'util/productsExample'
 
 const Cart = () => {
   const { cartItems } = useCartItems()
-
   const total = cartItems.reduce((accumulator, currentValue) => {
-    const product = productsExample.filter((product) => product.id === currentValue.id)[0]
-    return accumulator + Number(product.price.replace(',', '.')) * Number(currentValue.amount)
+    return accumulator + Number(currentValue.price.replace(',', '.')) * Number(currentValue.amount)
   }, 0)
 
   return (
@@ -16,8 +13,8 @@ const Cart = () => {
       <Header />
       <div className="mt-8">
         <div className="flex flex-col gap-6 lg:w-3/4 2xl:w-2/3 mx-auto">
-          {cartItems.map(({ id, amount }) => (
-            <CartItem key={id} id={id} amount={amount} />
+          {cartItems.map((item) => (
+            <CartItem key={item.id} {...item} />
           ))}
         </div>
       </div>

@@ -4,15 +4,17 @@ import { Link } from 'react-router-dom'
 import { useCartItems } from 'contexts/CartItems'
 
 interface IProductProps {
-  id: string
+  id: number
   text: string
   price: string
   units: string
-  img: string
+  img?: string
   seller: string
+  id_store: number
+  name_store: string
 }
 
-const Product = ({ text, price, units, img, id, seller }: IProductProps) => {
+const Product = ({ text, price, units, img, id, seller, id_store, name_store }: IProductProps) => {
   const { pushItem } = useCartItems()
 
   return (
@@ -52,7 +54,7 @@ const Product = ({ text, price, units, img, id, seller }: IProductProps) => {
                   Comprar Agora
                 </Link>
                 <button
-                  onClick={() => pushItem(id)}
+                  onClick={() => pushItem(id, text, id_store, name_store, price)}
                   className="w-full bg-primary-color border-none p-5 rounded text-lg md:text-xl text-bg-primary-color uppercase font-semibold tracking-widest cursor-pointer hover:mix-blend-hard-light"
                 >
                   Adicionar ao carrinho

@@ -3,7 +3,6 @@ import { Header } from 'components/Header'
 import { StoreCard } from 'components/StoreCard'
 import { useApi } from 'hooks/useApi'
 import { useEffect, useState } from 'react'
-import { productsExample } from 'util/productsExample'
 
 export const Home = () => {
   const [stores, setStores] = useState<{ id: number; name: string }[]>([])
