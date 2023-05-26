@@ -20,5 +20,9 @@ export const useCookies = () => {
     cookies.set('User', user, { expires: expirationDate })
   }
 
-  return { setAuthCookie, getCookie, setUserCookie }
+  const removeCookie = (cookie: string) => {
+    cookies.remove(cookie)
+  }
+
+  return { setAuthCookie, getCookie, setUserCookie, removeCookie }
 }

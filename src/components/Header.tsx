@@ -13,7 +13,7 @@ export const Header = () => {
   const [search, setSearch] = useState('')
   const [open, setOpen] = useState(false)
   const windowWidth = window.innerWidth
-  const { auth, setCookieAuth, getUser } = useAuth()
+  const { auth, setCookieAuth, getUser, removeAuth } = useAuth()
   const { cartItems } = useCartItems()
   const navigate = useNavigate()
   const totalCartItems = cartItems.reduce(
@@ -97,11 +97,15 @@ export const Header = () => {
         <>
           <div>
             <h3 className="text-sm md:text-lg tracking-wider font-medium">
-              Olá, <span className="text-primary-color md:text-xl">{user.name.split(' ')[0]}</span>
+              Olá,{' '}
+              <span className="text-primary-color md:text-xl">{user?.name?.split(' ')[0]}</span>
             </h3>
-            <h4 className="ml-2 md:ml-4 font-light text-xs md:text-base tracking-wide">
-              saldo: R${'28,30'}
-            </h4>
+            <button
+              onClick={() => removeAuth()}
+              className="ml-2 md:ml-4 font-light text-xs md:text-base tracking-widest hover:text-primary-color"
+            >
+              Sair
+            </button>
           </div>
           <Link to="/carrinho" className="relative">
             {!!totalCartItems && (

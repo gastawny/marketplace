@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 export const useAuth = () => {
   const { auth, setAuth } = useContext(AuthContext)
-  const { getCookie } = useCookies()
+  const { getCookie, removeCookie } = useCookies()
   const user: any = {}
 
   const setCookieAuth = () => {
@@ -30,9 +30,16 @@ export const useAuth = () => {
     return { ...user }
   }
 
+  const removeAuth = () => {
+    removeCookie('Authorization')
+    removeCookie('User')
+    setAuth(false)
+  }
+
   return {
     auth,
     setCookieAuth,
     getUser,
+    removeAuth,
   }
 }
