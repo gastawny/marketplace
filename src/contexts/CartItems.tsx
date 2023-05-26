@@ -1,4 +1,5 @@
 import { ReactNode, useContext, createContext, useState, Dispatch, SetStateAction } from 'react'
+import { useAuth } from './Auth'
 
 interface IITem {
   id: number
@@ -27,9 +28,12 @@ export const CartItemsProvider = ({ children }: { children: ReactNode }) => {
 }
 
 export const useCartItems = () => {
+  const { auth } = useAuth()
   const { cartItems, setCartItems } = useContext(CartItemsContext)
 
   function pushItem(id: number, name: string, id_store: number, name_store: string, price: string) {
+    if (!auth) return
+
     if (cartItems.some((item) => item.id === id))
       setCartItems((cartItems) =>
         cartItems.map((item) =>
@@ -44,6 +48,8 @@ export const useCartItems = () => {
   }
 
   function removeItem(id: number, store_id: number) {
+    if (!auth) return
+
     setCartItems((cartItems) =>
       cartItems
         .map((item) =>

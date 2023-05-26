@@ -1,5 +1,15 @@
 import { useCookies } from './useCookies'
 
+interface IProduct {
+  id: number
+  name: string
+  created_at: Date
+  updated_at: Date
+  price: number
+  units: number
+  store_id: number
+}
+
 export const useApi = () => {
   const { setAuthCookie, setUserCookie } = useCookies()
 
@@ -31,8 +41,9 @@ export const useApi = () => {
 
   const getProducts = async (id: number) => {
     const response = await fetch(`https://marketplace-poc.herokuapp.com/product?storeid=${id}`)
-    const data: any[] = await response.json()
-    const filteredProducts = data.map(({ id, price, store_id, name, units }) => ({
+    const data = await response.json()
+    const products: IProduct[] = data.product
+    const filteredProducts = products.map(({ id, price, store_id, name, units }) => ({
       id,
       price,
       store_id,
@@ -43,5 +54,24 @@ export const useApi = () => {
     return filteredProducts
   }
 
-  return { login, getStores, getProducts }
+  const registerUser = async (name: string, email: string, password: string) => {
+    try {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, name }),
+      }
+
+      const response = await fetch('https://marketplace-poc.herokuapp.com/user', requestOptions)
+      const data = await response.json()
+
+      if (data?.user === undefined) return { error: true, message: data }
+
+      return { error: false, message: 'Cadastro realizado com sucesso' }
+    } catch (error) {
+      return { error: true, message: 'O cadastro não foi realizado' }
+    }
+  }
+
+  return { login, getStores, getProducts, registerUser }
 }
