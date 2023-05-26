@@ -1,3 +1,4 @@
+import { useCookies } from 'hooks/useCookies'
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from 'react'
 
 interface IAuth {
@@ -15,10 +16,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 export const useAuth = () => {
   const { auth, setAuth } = useContext(AuthContext)
+  const { getCookie } = useCookies()
+  const user: any = {}
 
-  // get token of backend
+  const setCookieAuth = () => {
+    const result = getCookie('Authorization')
+    setAuth(result === undefined ? false : true)
+  }
+
+  const getUser = () => {
+    const result = getCookie('User')
+    const user = result
+    return { ...user }
+  }
 
   return {
     auth,
+    setCookieAuth,
+    getUser,
   }
 }
