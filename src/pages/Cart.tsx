@@ -3,7 +3,7 @@ import { Header } from 'components/Header'
 import { useCartItems } from 'contexts/CartItems'
 import { productsExample } from 'util/productsExample'
 
-export const Cart = () => {
+const Cart = () => {
   const { cartItems } = useCartItems()
 
   const total = cartItems.reduce((accumulator, currentValue) => {
@@ -35,3 +35,5 @@ export const Cart = () => {
     </>
   )
 }
+
+export default Cart

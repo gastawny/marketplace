@@ -3,10 +3,10 @@ import { Header } from 'components/Header'
 import { useParams } from 'react-router-dom'
 import { productsExample } from 'util/productsExample'
 
-export const Search = () => {
+const Search = () => {
   const { query } = useParams()
   const filteredItems = productsExample.filter((product) =>
-    product.text.toLowerCase().includes(query?.toLowerCase() as string)
+    product.name.toLowerCase().includes(query?.toLowerCase() as string)
   )
 
   return (
@@ -20,3 +20,5 @@ export const Search = () => {
     </>
   )
 }
+
+export default Search

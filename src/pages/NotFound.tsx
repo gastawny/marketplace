@@ -1,7 +1,7 @@
 import { Background } from 'components/Background'
 import { ReactComponent as Svg404 } from 'assets/svgs/404.svg'
 
-export const NotFound = () => (
+const NotFound = () => (
   <>
     <Background />
     <section className="relative min-h-screen w-full flex justify-center items-center">
@@ -14,3 +14,5 @@ export const NotFound = () => (
     </section>
   </>
 )
+
+export default NotFound

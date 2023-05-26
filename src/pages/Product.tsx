@@ -46,7 +46,7 @@ const Product = ({ text, price, units, img, id, seller }: IProductProps) => {
               </h2>
               <div className="flex flex-col gap-5">
                 <Link
-                  to="/cart"
+                  to="/carrinho"
                   className="w-full bg-primary-color border-none text-center p-5 rounded text-lg md:text-xl text-bg-primary-color uppercase font-semibold tracking-widest cursor-pointer hover:mix-blend-hard-light"
                 >
                   Comprar Agora

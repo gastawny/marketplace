@@ -12,7 +12,7 @@ export const CartItem = ({ id, amount }: { id: string; amount: number }) => {
       <img src={placadevideo} className="h-full rounded" />
       <div className="flex flex-col w-2/3 ml-4 gap-1">
         <h4 className="text-base font-medium tracking-wide text-primary-color">{product.seller}</h4>
-        <h3 className="text-lg font-bold tracking-wider line leading-5">{product.text}</h3>
+        <h3 className="text-lg font-bold tracking-wider line leading-5">{product.name}</h3>
       </div>
       <div className="flex flex-col items-center">
         <span className="text-sm font-light">Quant.</span>

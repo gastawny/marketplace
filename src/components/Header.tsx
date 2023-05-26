@@ -3,7 +3,7 @@ import icon from 'assets/images/icon.png'
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import tw from 'twin.macro'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { RiShoppingCartFill } from 'react-icons/ri'
 import { AiOutlineMenu, AiOutlineClose, AiOutlineSearch } from 'react-icons/ai'
 import { useAuth } from 'contexts/Auth'
@@ -13,16 +13,21 @@ export const Header = () => {
   const [search, setSearch] = useState('')
   const [open, setOpen] = useState(false)
   const windowWidth = window.innerWidth
-  const { auth } = useAuth()
+  const { auth, setCookieAuth, getUser } = useAuth()
   const { cartItems } = useCartItems()
   const navigate = useNavigate()
   const totalCartItems = cartItems.reduce(
     (accumulator, currentValue) => accumulator + currentValue.amount,
     0
   )
+  const user = getUser()
+
+  useEffect(() => {
+    setCookieAuth()
+  }, [])
 
   function changePageToSearch() {
-    if (search.length !== 0) navigate(`/search/${search}`)
+    if (search.length !== 0) navigate(`/busca/${search}`)
   }
 
   return (
@@ -71,7 +76,7 @@ export const Header = () => {
           <ul className="flex gap-6 lg:gap-9 xl:gap-12">
             <li>
               <Link
-                to="/"
+                to="/login"
                 className="text-base lg:text-lg tracking-wider font-medium hover:text-primary-color"
               >
                 Login
@@ -79,7 +84,7 @@ export const Header = () => {
             </li>
             <li>
               <Link
-                to="/"
+                to="/cadastro"
                 className="text-base lg:text-lg tracking-wider font-medium hover:text-primary-color"
               >
                 Cadastro
@@ -92,13 +97,13 @@ export const Header = () => {
         <>
           <div>
             <h3 className="text-sm md:text-lg tracking-wider font-medium">
-              Olá, <span className="text-primary-color md:text-xl">{'Gabriel'}</span>
+              Olá, <span className="text-primary-color md:text-xl">{user.name.split(' ')[0]}</span>
             </h3>
             <h4 className="ml-2 md:ml-4 font-light text-xs md:text-base tracking-wide">
               saldo: R${'28,30'}
             </h4>
           </div>
-          <Link to="/cart" className="relative">
+          <Link to="/carrinho" className="relative">
             {!!totalCartItems && (
               <div className="absolute -top-2 -right-2 rounded-full bg-primary-color h-5 w-5 text-zinc-900 font-medium flex items-center justify-center">
                 {totalCartItems}

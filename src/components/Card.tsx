@@ -4,13 +4,13 @@ import styled from 'styled-components'
 
 interface ICardProps {
   id: string
-  text: string
+  name: string
   price: string
   units: string
-  img: string
+  img?: string
 }
 
-export const Card = ({ text, price, units, img, id }: ICardProps) => {
+export const Card = ({ name, price, units, img, id }: ICardProps) => {
   return (
     <Link
       className="w-64 h-96 rounded-md bg-bg-secondary-color text-zinc-200 flex flex-col p-3 transition-transform hover:scale-105"
@@ -18,7 +18,7 @@ export const Card = ({ text, price, units, img, id }: ICardProps) => {
     >
       <img className="rounded-md" src={placadevideo} />
       <div className="flex h-full flex-col justify-around mt-2">
-        <Text className="text-lg leading-6 font-bold">{text}</Text>
+        <Text className="text-lg leading-6 font-bold">{name}</Text>
         <h3 className="text-4xl font-extrabold text-primary-color mix-blend-hard-light">
           R$ {price}
         </h3>

@@ -24,14 +24,6 @@ const RegisterFormDataSchema = z
           .map((word) => word[0].toLocaleUpperCase().concat(word.substring(1)))
           .join(' ')
       }),
-    CPF: z
-      .string()
-      .nonempty('O CPF é obrigatório')
-      .min(11, { message: 'CPF inválido' })
-      .max(11, { message: 'CPF inválido' })
-      .refine((value) => /^\d+$/.test(value), {
-        message: 'O CPF deve conter apenas números',
-      }),
     password: z
       .string()
       .nonempty({ message: 'A senha é obrigatória' })
@@ -52,7 +44,7 @@ const RegisterFormDataSchema = z
 
 type RegisterFormData = z.infer<typeof RegisterFormDataSchema>
 
-export const Register = () => {
+const Register = () => {
   const RegisterFormData = useForm<RegisterFormData>({
     resolver: zodResolver(RegisterFormDataSchema),
   })
@@ -72,7 +64,7 @@ export const Register = () => {
       <Background />
       <section className="min-h-screen flex justify-center items-center relative">
         <Signin>
-          <div className="relative w-full min-h-5/6 gap-5 md:gap-8 2xl:py-10 flex justify-around items-center flex-col">
+          <div className="relative w-full gap-5 md:gap-8 2xl:py-10 flex justify-around items-center flex-col">
             <h2 className="text-2xl md:text-3xl uppercase text-primary-color font-bold tracking-wider text-center">
               Crie sua conta
             </h2>
@@ -84,15 +76,16 @@ export const Register = () => {
                 <div className="col-span-2">
                   <Input field="Nome Completo" name="name" type="text" />
                 </div>
-                <Input field="E-mail" name="email" type="text" />
-                <Input field="CPF" name="CPF" type="text" />
+                <div className="col-span-2">
+                  <Input field="E-mail" name="email" type="text" />
+                </div>
                 <Input field="Senha" name="password" type="text" />
                 <Input field="Confirme a sua senha" name="confirmPassword" type="text" />
                 <div className="flex flex-col gap-1 col-span-2">
                   <CheckBox field="privacyPolicy">
                     {'Li e estou de acordo com as '}
                     <Link
-                      to="/register"
+                      to="/cadastro"
                       className="text-sm md:text-base no-underline text-primary-color font-medium tracking-wider hover:mix-blend-hard-light"
                     >
                       políticas da empresa e políticas de privacidade.
@@ -113,7 +106,7 @@ export const Register = () => {
           <div className="absolute flex gap-1 w-full items-baseline bottom-6">
             <h3>Não possui uma conta?</h3>
             <Link
-              to={'/register'}
+              to={'/cadastro'}
               className="text-sm md:text-base no-underline text-primary-color font-semibold tracking-wider hover:mix-blend-hard-light"
             >
               Cadastre-se
@@ -126,7 +119,9 @@ export const Register = () => {
 }
 
 const Signin = styled.div`
-  ${tw`absolute rounded-lg w-5/6 md:w-3/4 lg:w-2/3 2xl:w-1/4 md:h-3/4 2xl:h-3/4 bg-bg-secondary-color z-50 p-8 box-border`}
+  ${tw`absolute rounded-lg w-5/6 md:w-3/4 lg:w-2/3 2xl:w-1/4 h-5/6 md:h-3/4 2xl:h-2/3 bg-bg-secondary-color z-50 p-5 md:p-8 box-border`}
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
   min-height: 26rem;
 `
+
+export default Register
