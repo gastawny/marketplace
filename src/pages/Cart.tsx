@@ -5,7 +5,10 @@ import { useCartItems } from 'contexts/CartItems'
 const Cart = () => {
   const { cartItems } = useCartItems()
   const total = cartItems.reduce((accumulator, currentValue) => {
-    return accumulator + Number(currentValue.price.replace(',', '.')) * Number(currentValue.amount)
+    const itemPrice = currentValue.price?.replace(',', '.') || '0'
+    const itemAmount = currentValue.amount || '0'
+
+    return accumulator + Number(itemPrice) * Number(itemAmount)
   }, 0)
 
   return (

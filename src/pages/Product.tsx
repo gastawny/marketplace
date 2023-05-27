@@ -1,50 +1,53 @@
 import { Header } from 'components/Header'
 import placadevideo from 'assets/images/placadevideo.jpg'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useCartItems } from 'contexts/CartItems'
+import { useApi } from 'hooks/useApi'
+import { useEffect, useState } from 'react'
 
-interface IProductProps {
-  id: number
-  text: string
-  price: string
-  units: string
-  img?: string
-  seller: string
-  id_store: number
-  name_store: string
-}
-
-const Product = ({ text, price, units, img, id, seller, id_store, name_store }: IProductProps) => {
+const Product = () => {
   const { pushItem } = useCartItems()
+  const { getOneProduct } = useApi()
+  const [product, setProduct] = useState<any>({})
+  const { store_id, product_id } = useParams()
+
+  useEffect(() => {
+    async function fetchProduct() {
+      const productResponse = await getOneProduct(Number(store_id), Number(product_id))
+      setProduct(productResponse)
+    }
+
+    fetchProduct()
+  }, [])
 
   return (
     <>
       <Header />
-      <div className="my-8"></div>
-      <div className="mx-auto w-4/5 tracking-wider rounded-md bg-bg-secondary-color text-zinc-200 flex flex-col p-10">
-        <h1 className="text-4xl font-bold text-zinc-200">{text}</h1>
+      <div className="my-4 2xl:my-8"></div>
+      <div className="mx-auto my-3 w-4/5 tracking-wider rounded-md bg-bg-secondary-color text-zinc-200 flex flex-col p-10 bg">
+        <h1 className="text-4xl font-bold text-zinc-200">{product.name}</h1>
         <div className="flex justify-between">
           <img src={placadevideo} className="mt-6 w-2/5 rounded-md" />
           <div className="w-full flex">
-            <div className="flex flex-col justify-between h-min w-1/2 px-6 gap-8 my-auto">
+            <div className="flex flex-col justify-between h-min w-full   px-6 gap-8 my-auto">
               <div>
                 <p className="text-xl">
-                  ({units}){' '}
+                  ({product.units}){' '}
                   <span
-                    className={`text-${
-                      Number(units) != 0 ? 'positive' : 'negative'
-                    }-color font-medium`}
+                    className={`${
+                      Number(product.units) != 0 ? 'text-positive-color' : 'text-negative-color'
+                    } font-medium`}
                   >
-                    {Number(units) != 0 ? 'Em estoque' : 'Esgotado'}
+                    {Number(product.units) != 0 ? 'Em estoque' : 'Esgotado'}
                   </span>
                 </p>
                 <p className="text-xl">
                   Vendido e entregue por:{' '}
-                  <span className="font-medium text-primary-color">{seller}</span>
+                  <span className="font-medium text-primary-color">{product.storeName}</span>
                 </p>
               </div>
-              <h2 className="text-7xl font-extrabold text-primary-color mix-blend-hard-light">
-                R$ {price}
+              <h2 className="text-5 xl 2xl:text-6xl font-extrabold text-primary-color mix-blend-hard-light">
+                R$ {product.units}
               </h2>
               <div className="flex flex-col gap-5">
                 <Link
@@ -54,15 +57,20 @@ const Product = ({ text, price, units, img, id, seller, id_store, name_store }: 
                   Comprar Agora
                 </Link>
                 <button
-                  onClick={() => pushItem(id, text, id_store, name_store, price)}
+                  onClick={() =>
+                    pushItem(
+                      product.id,
+                      product.name,
+                      Number(store_id),
+                      product.storeName,
+                      product.price
+                    )
+                  }
                   className="w-full bg-primary-color border-none p-5 rounded text-lg md:text-xl text-bg-primary-color uppercase font-semibold tracking-widest cursor-pointer hover:mix-blend-hard-light"
                 >
                   Adicionar ao carrinho
                 </button>
               </div>
-            </div>
-            <div>
-              <h1>Other Products</h1>
             </div>
           </div>
         </div>

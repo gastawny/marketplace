@@ -54,6 +54,31 @@ export const useApi = () => {
     return filteredProducts
   }
 
+  const getOneProduct = async (store_id: number, id: number) => {
+    const response = await fetch(
+      `https://marketplace-poc.herokuapp.com/product?storeid=${store_id}`
+    )
+    const data = await response.json()
+    const products: IProduct[] = data.product
+    const filteredProducts = products.map(({ id, price, store_id, name, units }) => ({
+      id,
+      price,
+      store_id,
+      name,
+      units,
+    }))
+    const product = filteredProducts.filter((product) => product.id === id)[0]
+
+    return { ...product, storeName: data.name }
+  }
+
+  const getAllProducts = async () => {
+    const response = await fetch('https://marketplace-poc.herokuapp.com/product?storeid=all')
+    const data = await response.json()
+
+    return data
+  }
+
   const registerUser = async (name: string, email: string, password: string) => {
     try {
       const requestOptions = {
@@ -73,5 +98,5 @@ export const useApi = () => {
     }
   }
 
-  return { login, getStores, getProducts, registerUser }
+  return { login, getStores, getProducts, registerUser, getOneProduct, getAllProducts }
 }

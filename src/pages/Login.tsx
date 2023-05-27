@@ -8,7 +8,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useApi } from 'hooks/useApi'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Loading } from './Loading'
 
 const loginFormDataSchema = z.object({
@@ -65,12 +65,12 @@ const Login = () => {
                 {errorMessage.error && <span>E-mail ou senha incorretos</span>}
                 <div className="relative w-full flex justify-between">
                   <CheckBox field="isChecked">Lembrar senha</CheckBox>
-                  <a
+                  <Link
                     className="text-sm md:text-base no-underline text-primary-color font-semibold tracking-wider hover:mix-blend-hard-light"
-                    href="#"
+                    to="/cadastro"
                   >
                     Criar uma conta
-                  </a>
+                  </Link>
                 </div>
                 <div>
                   <button

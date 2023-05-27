@@ -14,7 +14,7 @@ export const Home = () => {
   return (
     <>
       <Header />
-      <div className="mt-12 flex flex-wrap gap-8 justify-center backdrop-filter backdrop-blur-sm">
+      <div className="my-8 flex flex-wrap gap-8 justify-center backdrop-filter backdrop-blur-sm">
         {stores.map((store) => (
           <StoreCard key={store.id} id={store.id} name={store.name} />
         ))}
